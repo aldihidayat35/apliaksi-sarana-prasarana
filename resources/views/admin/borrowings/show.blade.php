@@ -29,8 +29,10 @@
                     <tr><td class="fw-bold text-muted">Tanggal Pinjam</td><td>{{ $borrowing->borrow_date->format('d M Y') }}</td></tr>
                     <tr><td class="fw-bold text-muted">Harus Kembali</td><td>{{ $borrowing->expected_return_date->format('d M Y') }}</td></tr>
                     <tr><td class="fw-bold text-muted">Dikembalikan</td><td>{{ $borrowing->actual_return_date?->format('d M Y') ?? '-' }}</td></tr>
+                    <tr><td class="fw-bold text-muted">Kondisi Pengembalian</td><td>{{ $borrowing->return_condition_label ?? '-' }}</td></tr>
                     <tr><td class="fw-bold text-muted">Tujuan</td><td>{{ $borrowing->purpose ?? '-' }}</td></tr>
                     <tr><td class="fw-bold text-muted">Catatan</td><td>{{ $borrowing->notes ?? '-' }}</td></tr>
+                    <tr><td class="fw-bold text-muted">Keterangan Pengembalian</td><td>{{ $borrowing->return_notes ?? '-' }}</td></tr>
                     <tr><td class="fw-bold text-muted">Disetujui Oleh</td><td>{{ $borrowing->approvedByUser->name ?? '-' }}</td></tr>
                 </table>
             </div>
@@ -48,6 +50,7 @@
                     <tr><td class="fw-bold text-muted">Kategori</td><td>{{ $borrowing->item->category->name }}</td></tr>
                     <tr><td class="fw-bold text-muted">Lokasi</td><td>{{ $borrowing->item->location->name }}</td></tr>
                     <tr><td class="fw-bold text-muted">Kondisi</td><td><span class="badge badge-light-{{ $borrowing->item->condition_badge }}">{{ $borrowing->item->condition_label }}</span></td></tr>
+                    <tr><td class="fw-bold text-muted">Status</td><td><span class="badge badge-light-{{ $borrowing->item->availability_badge }}">{{ $borrowing->item->availability_label }}</span></td></tr>
                 </table>
             </div>
         </div>

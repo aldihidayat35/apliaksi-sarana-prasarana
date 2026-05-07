@@ -1,12 +1,14 @@
 @extends('layouts.app')
-@section('title', 'Data Peminjaman')
-@section('page-title', 'Peminjaman Barang')
+@section('title', 'Pengembalian Barang')
+@section('page-title', 'Form Pengembalian Barang')
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
     <li class="breadcrumb-item text-muted"><a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
-    <li class="breadcrumb-item text-gray-900">Peminjaman</li>
+    <li class="breadcrumb-item text-muted"><a href="{{ route('admin.borrowings.index') }}" class="text-muted text-hover-primary">Peminjaman</a></li>
+    <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
+    <li class="breadcrumb-item text-gray-900">Pengembalian</li>
 </ul>
 @endsection
 
@@ -19,18 +21,9 @@
     <div class="card-header border-0 pt-6">
         <div class="card-title">
             <form method="GET" class="d-flex gap-3">
-                <select name="status" class="form-select form-select-solid w-175px" onchange="this.form.submit()">
-                    <option value="">Semua Status</option>
-                    <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                    <option value="dikembalikan" {{ request('status') == 'dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
-                    <option value="terlambat" {{ request('status') == 'terlambat' ? 'selected' : '' }}>Terlambat</option>
-                </select>
+                <input type="text" name="search" class="form-control form-control-solid w-250px" placeholder="Cari nama barang..." value="{{ request('search') }}" />
+                <button class="btn btn-primary btn-sm">Cari</button>
             </form>
-        </div>
-        <div class="card-toolbar">
-            <a href="{{ route('admin.borrowings.create') }}" class="btn btn-primary">
-                <i class="ki-duotone ki-plus fs-2"></i> Form Peminjaman
-            </a>
         </div>
     </div>
     <div class="card-body pt-0">
@@ -42,9 +35,7 @@
                         <th>Barang</th>
                         <th>Peminjam</th>
                         <th>Tgl Pinjam</th>
-                        <th>Tgl Harus Kembali</th>
-                        <th>Tgl Dikembalikan</th>
-                        <th>Status</th>
+                        <th>Harus Kembali</th>
                         <th class="text-end">Aksi</th>
                     </tr>
                 </thead>
@@ -59,29 +50,13 @@
                         <td>{{ $b->user->name }}</td>
                         <td>{{ $b->borrow_date->format('d M Y') }}</td>
                         <td>{{ $b->expected_return_date->format('d M Y') }}</td>
-                        <td>{{ $b->actual_return_date?->format('d M Y') ?? '-' }}</td>
-                        <td><span class="badge badge-light-{{ $b->status_badge }}">{{ $b->status_label }}</span></td>
                         <td class="text-end">
-                            @if($b->status === 'dipinjam')
                             <button class="btn btn-icon btn-light-success btn-sm" data-bs-toggle="modal" data-bs-target="#returnModal{{ $b->id }}" title="Kembalikan">
                                 <i class="ki-duotone ki-check-circle fs-4"><span class="path1"></span><span class="path2"></span></i>
                             </button>
-                            @endif
-                            <a href="{{ route('admin.borrowings.show', $b) }}" class="btn btn-icon btn-light-info btn-sm" title="Detail">
-                                <i class="ki-duotone ki-eye fs-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                            </a>
-                            @if(auth()->user()->isAdmin())
-                            <form action="{{ route('admin.borrowings.destroy', $b) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin menghapus?')">
-                                @csrf @method('DELETE')
-                                <button class="btn btn-icon btn-light-danger btn-sm" title="Hapus">
-                                    <i class="ki-duotone ki-trash fs-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
-                                </button>
-                            </form>
-                            @endif
                         </td>
                     </tr>
 
-                    @if($b->status === 'dipinjam')
                     <div class="modal fade" id="returnModal{{ $b->id }}" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -122,10 +97,9 @@
                             </div>
                         </div>
                     </div>
-                    @endif
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-10">Belum ada data peminjaman</td>
+                        <td colspan="6" class="text-center text-muted py-10">Tidak ada barang yang perlu dikembalikan</td>
                     </tr>
                     @endforelse
                 </tbody>

@@ -74,6 +74,9 @@
             <a href="{{ route('admin.reports.borrowing.pdf', request()->all()) }}" class="btn btn-light-danger btn-sm">
                 <i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh PDF
             </a>
+            <a href="{{ route('admin.reports.borrowing.excel', request()->all()) }}" class="btn btn-light-success btn-sm">
+                <i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh Excel
+            </a>
             <button onclick="window.print()" class="btn btn-light-primary btn-sm">
                 <i class="ki-duotone ki-printer fs-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i> Cetak
             </button>
@@ -123,7 +126,7 @@ new ApexCharts(document.querySelector("#chart_borrow_trend"), {
         { name: 'Dikembalikan', data: [@for($m=1;$m<=12;$m++){{ $monthlyReturn[$m] }}{{ $m<12?',':'' }}@endfor] }
     ],
     chart: { type: 'area', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
-    colors: ['#1B84FF', '#17C653'],
+    colors: ['#0EA5E9', '#F97316'],
     dataLabels: { enabled: false },
     stroke: { curve: 'smooth', width: 2 },
     fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.1 } },
@@ -139,7 +142,7 @@ new ApexCharts(document.querySelector("#chart_borrow_status"), {
     series: [{{ $summary['dipinjam'] }}, {{ $summary['dikembalikan'] }}, {{ $summary['terlambat'] }}],
     chart: { type: 'donut', height: 300, fontFamily: 'inherit' },
     labels: ['Dipinjam', 'Dikembalikan', 'Terlambat'],
-    colors: ['#F6C000', '#17C653', '#F8285A'],
+    colors: ['#0EA5E9', '#22C55E', '#F97316'],
     plotOptions: { pie: { donut: { size: '65%', labels: { show: true, total: { show: true, label: 'Total', fontSize: '14px', fontWeight: 600, color: '#A1A5B7' } } } } },
     dataLabels: { enabled: false },
     legend: { position: 'bottom', fontSize: '12px', labels: { colors: '#A1A5B7' } },

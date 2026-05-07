@@ -48,5 +48,32 @@
             </div>
         </a>
     </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="{{ route('admin.reports.damage-location') }}" class="card card-flush hoverable h-100">
+            <div class="card-body text-center py-10">
+                <i class="ki-duotone ki-map fs-5x text-primary mb-5"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <h3 class="fw-bold text-gray-900">Kerusakan per Lokasi</h3>
+                <p class="text-gray-500 fs-7">Laporan kerusakan berdasarkan ruangan/lokasi</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="{{ route('admin.reports.condition') }}" class="card card-flush hoverable h-100">
+            <div class="card-body text-center py-10">
+                <i class="ki-duotone ki-shield-tick fs-5x text-info mb-5"><span class="path1"></span><span class="path2"></span></i>
+                <h3 class="fw-bold text-gray-900">Laporan Kondisi</h3>
+                <p class="text-gray-500 fs-7">Ringkasan inventaris berdasarkan kondisi barang</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a href="{{ route('admin.reports.priority') }}" class="card card-flush hoverable h-100">
+            <div class="card-body text-center py-10">
+                <i class="ki-duotone ki-chart-line fs-5x text-warning mb-5"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <h3 class="fw-bold text-gray-900">Prioritas Pengadaan</h3>
+                <p class="text-gray-500 fs-7">Analisis kebutuhan barang untuk tahun berikutnya</p>
+            </div>
+        </a>
+    </div>
 </div>
 @endsection

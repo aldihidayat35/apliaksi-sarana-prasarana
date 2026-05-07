@@ -7,6 +7,7 @@ use App\Models\Borrowing;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\ActivityLog;
+use App\Models\ConditionReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,22 +79,61 @@ class BorrowingController extends Controller
 
     public function returnItem(Borrowing $borrowing, Request $request)
     {
+        if (Auth::user()->isGuru() && $borrowing->user_id !== Auth::id()) {
+            abort(403, 'Anda tidak memiliki akses ke data ini.');
+        }
+
         $request->validate([
             'actual_return_date' => ['required', 'date'],
-            'notes' => ['nullable', 'string'],
+            'return_condition' => ['required', 'in:baik,rusak_ringan,rusak_berat,hilang'],
+            'return_notes' => ['nullable', 'string'],
         ]);
 
         $status = $request->date('actual_return_date') > $borrowing->expected_return_date ? 'terlambat' : 'dikembalikan';
 
         $borrowing->update([
             'actual_return_date' => $request->actual_return_date,
+            'return_condition' => $request->return_condition,
+            'return_notes' => $request->return_notes,
             'status' => $status,
-            'notes' => $request->notes,
         ]);
+
+        $item = $borrowing->item;
+        $conditionBefore = $item->condition;
+        if ($request->return_condition && $request->return_condition !== $conditionBefore) {
+            $item->update(['condition' => $request->return_condition]);
+
+            ConditionReport::create([
+                'item_id' => $item->id,
+                'reported_by' => Auth::id(),
+                'condition_before' => $conditionBefore,
+                'condition_after' => $request->return_condition,
+                'description' => $request->return_notes ?: 'Update kondisi saat pengembalian barang.',
+                'report_date' => $request->actual_return_date,
+            ]);
+        }
 
         ActivityLog::log('borrowing_returned', "Pengembalian: {$borrowing->item->name} oleh {$borrowing->user->name}", $borrowing);
 
-        return redirect()->route('admin.borrowings.index')->with('success', 'Barang berhasil dikembalikan.');
+        return back()->with('success', 'Barang berhasil dikembalikan.');
+    }
+
+    public function returns(Request $request)
+    {
+        $query = Borrowing::with(['item', 'user'])->where('status', 'dipinjam');
+
+        if (Auth::user()->isGuru()) {
+            $query->where('user_id', Auth::id());
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('item', fn($q) => $q->where('name', 'like', "%{$search}%"));
+        }
+
+        $borrowings = $query->orderBy('borrow_date', 'desc')->get();
+
+        return view('admin.borrowings.returns', compact('borrowings'));
     }
 
     public function destroy(Borrowing $borrowing)

@@ -76,4 +76,22 @@ class Item extends Model
             default => 'secondary',
         };
     }
+
+    public function getAvailabilityLabelAttribute(): string
+    {
+        if ($this->condition === 'hilang') {
+            return 'Hilang';
+        }
+
+        return $this->isAvailable() ? 'Tersedia' : 'Dipinjam';
+    }
+
+    public function getAvailabilityBadgeAttribute(): string
+    {
+        if ($this->condition === 'hilang') {
+            return 'dark';
+        }
+
+        return $this->isAvailable() ? 'success' : 'warning';
+    }
 }

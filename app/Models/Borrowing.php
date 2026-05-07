@@ -8,7 +8,8 @@ class Borrowing extends Model
 {
     protected $fillable = [
         'item_id', 'user_id', 'borrow_date', 'expected_return_date',
-        'actual_return_date', 'status', 'purpose', 'notes', 'approved_by',
+        'actual_return_date', 'return_condition', 'return_notes', 'status',
+        'purpose', 'notes', 'approved_by',
     ];
 
     protected function casts(): array
@@ -52,6 +53,21 @@ class Borrowing extends Model
             'dikembalikan' => 'success',
             'terlambat' => 'danger',
             default => 'secondary',
+        };
+    }
+
+    public function getReturnConditionLabelAttribute(): ?string
+    {
+        if (!$this->return_condition) {
+            return null;
+        }
+
+        return match ($this->return_condition) {
+            'baik' => 'Baik',
+            'rusak_ringan' => 'Rusak Ringan',
+            'rusak_berat' => 'Rusak Berat',
+            'hilang' => 'Hilang',
+            default => $this->return_condition,
         };
     }
 }

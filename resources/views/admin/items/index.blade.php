@@ -51,6 +51,7 @@
                         <th class="min-w-120px">Kategori</th>
                         <th class="min-w-120px">Lokasi</th>
                         <th class="min-w-100px">Kondisi</th>
+                        <th class="min-w-100px">Status</th>
                         <th class="min-w-80px">Qty</th>
                         <th class="min-w-120px text-end">Aksi</th>
                     </tr>
@@ -73,6 +74,7 @@
                         <td>{{ $item->category->name }}</td>
                         <td>{{ $item->location->name }}</td>
                         <td><span class="badge badge-light-{{ $item->condition_badge }}">{{ $item->condition_label }}</span></td>
+                        <td><span class="badge badge-light-{{ $item->availability_badge }}">{{ $item->availability_label }}</span></td>
                         <td>{{ $item->quantity }}</td>
                         <td class="text-end">
                             <a href="{{ route('admin.items.show', $item) }}" class="btn btn-icon btn-light-info btn-sm" title="Detail">
@@ -91,7 +93,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-10">Belum ada data barang</td>
+                        <td colspan="9" class="text-center text-muted py-10">Belum ada data barang</td>
                     </tr>
                     @endforelse
                 </tbody>

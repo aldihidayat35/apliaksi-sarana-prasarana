@@ -42,6 +42,12 @@
                     </a>
                 </div>
                 <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.items.new') ? 'active' : '' }}" href="{{ route('admin.items.new') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Barang Baru</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('admin.items.create') ? 'active' : '' }}" href="{{ route('admin.items.create') }}">
                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                         <span class="menu-title">Tambah Barang</span>
@@ -105,6 +111,12 @@
                     <a class="menu-link {{ request()->routeIs('admin.borrowings.index') ? 'active' : '' }}" href="{{ route('admin.borrowings.index') }}">
                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                         <span class="menu-title">Data Peminjaman</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.borrowings.returns') ? 'active' : '' }}" href="{{ route('admin.borrowings.returns') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Pengembalian Barang</span>
                     </a>
                 </div>
                 <div class="menu-item">
@@ -184,6 +196,24 @@
                     <a class="menu-link {{ request()->routeIs('admin.reports.damage') ? 'active' : '' }}" href="{{ route('admin.reports.damage') }}">
                         <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
                         <span class="menu-title">Laporan Kerusakan</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.reports.damage-location') ? 'active' : '' }}" href="{{ route('admin.reports.damage-location') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Kerusakan per Lokasi</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.reports.condition') ? 'active' : '' }}" href="{{ route('admin.reports.condition') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Laporan Kondisi Barang</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('admin.reports.priority') ? 'active' : '' }}" href="{{ route('admin.reports.priority') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Prioritas Pengadaan</span>
                     </a>
                 </div>
                 <div class="menu-item">

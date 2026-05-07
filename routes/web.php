@@ -45,12 +45,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/reports/inventory', [ReportController::class, 'inventory'])->name('reports.inventory');
     Route::get('/reports/borrowing', [ReportController::class, 'borrowing'])->name('reports.borrowing');
     Route::get('/reports/damage', [ReportController::class, 'damage'])->name('reports.damage');
+    Route::get('/reports/damage-location', [ReportController::class, 'damageLocation'])->name('reports.damage-location');
+    Route::get('/reports/condition', [ReportController::class, 'condition'])->name('reports.condition');
+    Route::get('/reports/priority', [ReportController::class, 'priority'])->name('reports.priority');
     Route::get('/reports/annual', [ReportController::class, 'annual'])->name('reports.annual');
     // PDF Downloads
     Route::get('/reports/inventory/pdf', [ReportController::class, 'inventoryPdf'])->name('reports.inventory.pdf');
+    Route::get('/reports/inventory/excel', [ReportController::class, 'inventoryExcel'])->name('reports.inventory.excel');
     Route::get('/reports/borrowing/pdf', [ReportController::class, 'borrowingPdf'])->name('reports.borrowing.pdf');
+    Route::get('/reports/borrowing/excel', [ReportController::class, 'borrowingExcel'])->name('reports.borrowing.excel');
     Route::get('/reports/damage/pdf', [ReportController::class, 'damagePdf'])->name('reports.damage.pdf');
+    Route::get('/reports/damage/excel', [ReportController::class, 'damageExcel'])->name('reports.damage.excel');
+    Route::get('/reports/damage-location/pdf', [ReportController::class, 'damageLocationPdf'])->name('reports.damage-location.pdf');
+    Route::get('/reports/damage-location/excel', [ReportController::class, 'damageLocationExcel'])->name('reports.damage-location.excel');
+    Route::get('/reports/condition/pdf', [ReportController::class, 'conditionPdf'])->name('reports.condition.pdf');
+    Route::get('/reports/condition/excel', [ReportController::class, 'conditionExcel'])->name('reports.condition.excel');
     Route::get('/reports/annual/pdf', [ReportController::class, 'annualPdf'])->name('reports.annual.pdf');
+    Route::get('/reports/annual/excel', [ReportController::class, 'annualExcel'])->name('reports.annual.excel');
 });
 
 /*
@@ -61,6 +72,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware(['auth', 'admin:admin,guru'])->prefix('admin')->name('admin.')->group(function () {
     // Borrowings
     Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
+    Route::get('/borrowings/returns', [BorrowingController::class, 'returns'])->name('borrowings.returns');
     Route::get('/borrowings/create', [BorrowingController::class, 'create'])->name('borrowings.create');
     Route::post('/borrowings', [BorrowingController::class, 'store'])->name('borrowings.store');
     Route::get('/borrowings/{borrowing}', [BorrowingController::class, 'show'])->name('borrowings.show');
@@ -75,6 +87,7 @@ Route::middleware(['auth', 'admin:admin,guru'])->prefix('admin')->name('admin.')
 */
 Route::middleware(['auth', 'admin:admin'])->prefix('admin')->name('admin.')->group(function () {
     // Inventory
+    Route::get('/items/new', [ItemController::class, 'newItems'])->name('items.new');
     Route::resource('items', ItemController::class);
 
     // Registration / QR

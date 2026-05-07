@@ -37,6 +37,7 @@
                     <tr><td class="fw-bold text-muted">Kategori</td><td>{{ $item->category->name }}</td></tr>
                     <tr><td class="fw-bold text-muted">Lokasi</td><td>{{ $item->location->name }}</td></tr>
                     <tr><td class="fw-bold text-muted">Kondisi</td><td><span class="badge badge-light-{{ $item->condition_badge }}">{{ $item->condition_label }}</span></td></tr>
+                    <tr><td class="fw-bold text-muted">Status</td><td><span class="badge badge-light-{{ $item->availability_badge }}">{{ $item->availability_label }}</span></td></tr>
                     <tr><td class="fw-bold text-muted">Jumlah</td><td>{{ $item->quantity }}</td></tr>
                     <tr><td class="fw-bold text-muted">Harga</td><td>Rp {{ number_format($item->price, 0, ',', '.') }}</td></tr>
                     <tr><td class="fw-bold text-muted">Tgl Perolehan</td><td>{{ $item->acquisition_date?->format('d M Y') ?? '-' }}</td></tr>

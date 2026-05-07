@@ -83,6 +83,27 @@ class ItemController extends Controller
         return view('admin.items.show', compact('item'));
     }
 
+    public function newItems(Request $request)
+    {
+        $days = (int) $request->input('days', 90);
+        $days = $days > 0 ? $days : 90;
+        $cutoff = now()->subDays($days)->startOfDay();
+
+        $items = Item::with(['category', 'location'])
+            ->where(function ($q) use ($cutoff) {
+                $q->whereDate('acquisition_date', '>=', $cutoff)
+                  ->orWhere(function ($q2) use ($cutoff) {
+                      $q2->whereNull('acquisition_date')
+                         ->whereDate('created_at', '>=', $cutoff);
+                  });
+            })
+            ->latest('acquisition_date')
+            ->latest()
+            ->get();
+
+        return view('admin.items.new', compact('items', 'days'));
+    }
+
     public function edit(Item $item)
     {
         $categories = Category::orderBy('name')->get();

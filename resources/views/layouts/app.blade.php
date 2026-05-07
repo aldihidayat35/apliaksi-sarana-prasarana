@@ -11,11 +11,17 @@
     @else
     <link rel="shortcut icon" href="assets/media/logos/favicon.ico"/>
     @endif
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"/>
     @stack('vendor-css')
     <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
     <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
     <style>
+        :root {
+            --app-font-body: 'Manrope', 'Outfit', sans-serif;
+            --app-font-heading: 'Outfit', 'Manrope', sans-serif;
+        }
+        body { font-family: var(--app-font-body); }
+        h1, h2, h3, h4, h5, h6, .card-title, .page-title, .menu-title { font-family: var(--app-font-heading); }
         body.aside-minimize .aside-name { display: none !important; }
     </style>
     @stack('custom-css')

@@ -29,6 +29,9 @@
             <a href="{{ route('admin.reports.annual.pdf', ['year' => $year]) }}" class="btn btn-light-danger btn-sm ms-auto me-2">
                 <i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh PDF
             </a>
+            <a href="{{ route('admin.reports.annual.excel', ['year' => $year]) }}" class="btn btn-light-success btn-sm me-2">
+                <i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh Excel
+            </a>
             <button onclick="window.print()" type="button" class="btn btn-light-primary btn-sm">
                 <i class="ki-duotone ki-printer fs-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i> Cetak
             </button>

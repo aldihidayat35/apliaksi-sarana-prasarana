@@ -84,6 +84,33 @@
 </div>
 <!--end::Stats Row-->
 
+<!--begin::Quick Reports Row-->
+<div class="row g-5 g-xl-8 mb-5 mb-xl-8">
+    <div class="col-xl-6">
+        <a href="{{ route('admin.reports.damage-location') }}" class="card card-flush hoverable h-100">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="fw-bold fs-3 text-gray-900">Kerusakan per Lokasi</div>
+                    <div class="text-muted fs-7">Lihat ruangan dengan kerusakan terbanyak</div>
+                </div>
+                <i class="ki-duotone ki-map fs-3x text-primary"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-xl-6">
+        <a href="{{ route('admin.reports.priority') }}" class="card card-flush hoverable h-100">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <div class="fw-bold fs-3 text-gray-900">Prioritas Pengadaan</div>
+                    <div class="text-muted fs-7">Rekomendasi barang yang perlu diprioritaskan</div>
+                </div>
+                <i class="ki-duotone ki-chart-simple fs-3x text-success"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+            </div>
+        </a>
+    </div>
+</div>
+<!--end::Quick Reports Row-->
+
 <!--begin::Charts Row-->
 <div class="row g-5 g-xl-8 mb-5 mb-xl-8">
     <!--begin::Chart - Peminjaman Bulanan-->
@@ -231,8 +258,8 @@ var borrowOptions = {
     }],
     chart: { type: 'line', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
     stroke: { curve: 'smooth', width: 3 },
-    colors: ['#1B84FF'],
-    markers: { size: 5, colors: ['#1B84FF'], strokeColors: '#fff', strokeWidth: 2 },
+    colors: ['#0EA5E9'],
+    markers: { size: 5, colors: ['#0EA5E9'], strokeColors: '#fff', strokeWidth: 2 },
     dataLabels: { enabled: false },
     legend: { show: false },
     xaxis: {
