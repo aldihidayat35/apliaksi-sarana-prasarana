@@ -9,6 +9,15 @@
             <li class="menu-item">
                 <span class="menu-link px-2 text-muted">{{ app_setting('app_version', 'v1.0.0') }}</span>
             </li>
+            <li class="menu-item">
+                <form method="POST" action="{{ route('logout') }}" class="d-inline m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-light-danger d-flex align-items-center gap-1">
+                        <i class="ki-duotone ki-exit-left fs-5"><span class="path1"></span><span class="path2"></span></i>
+                        Logout
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 </div>

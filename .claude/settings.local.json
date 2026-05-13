@@ -5,7 +5,9 @@
       "Bash(python3 -c \"print\\(open\\('/c/laragon/www/apliaksi-sarana-prarcoma/resources/views/admin/reports/priority.blade.php'\\).read\\(\\)\\)\")",
       "Bash(python -c \"print\\(open\\('C:/laragon/www/apliaksi-sarana-prarcoma/resources/views/admin/reports/priority.blade.php'\\).read\\(\\)\\)\")",
       "Bash(php --version)",
-      "Bash(composer show *)"
+      "Bash(composer show *)",
+      "Bash(php -l routes/web.php)",
+      "Bash(php -l app/Http/Controllers/Admin/GuruController.php)"
     ]
   }
 }

@@ -7,7 +7,8 @@
     <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
         id="#kt_aside_menu" data-kt-menu="true">
 
-        <!--begin::Menu item - Dashboard-->
+        <!--begin::Menu item - Dashboard (Admin)-->
+        @if(auth()->user()->isAdmin())
         <div class="menu-item">
             <a class="menu-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                 <span class="menu-icon">
@@ -16,7 +17,21 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </div>
-        <!--end::Menu item-->
+        @endif
+        <!--end::Menu item - Dashboard (Admin)-->
+
+        <!--begin::Menu item - Dashboard (Guru only)-->
+        @if(auth()->user()->isGuru() && !auth()->user()->isAdmin())
+        <div class="menu-item">
+            <a class="menu-link {{ request()->routeIs('guru.dashboard') ? 'active' : '' }}" href="{{ route('guru.dashboard') }}">
+                <span class="menu-icon">
+                    <i class="ki-duotone ki-element-11 fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </span>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </div>
+        @endif
+        <!--end::Menu item - Dashboard (Guru only)-->
 
         @if(auth()->user()->isAdmin())
         <div class="menu-item pt-5">
@@ -25,7 +40,7 @@
             </div>
         </div>
 
-        <!--begin::Menu item - Inventaris-->
+        <!--begin::Menu item - Inventaris (Admin)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.items.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -55,9 +70,9 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - Inventaris (Admin)-->
 
-        <!--begin::Menu item - Registrasi Sarana-->
+        <!--begin::Menu item - Registrasi Sarana (Admin)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.registrations.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -87,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - Registrasi Sarana (Admin)-->
         @endif
 
         @if(auth()->user()->isAdmin() || auth()->user()->isGuru())
@@ -97,8 +112,8 @@
             </div>
         </div>
 
-        <!--begin::Menu item - Inventaris (Guru)-->
-        @if(auth()->user()->isGuru())
+        <!--begin::Menu item - Inventaris (Guru only)-->
+        @if(auth()->user()->isGuru() && !auth()->user()->isAdmin())
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('guru.inventaris*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -128,10 +143,10 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item - Inventaris (Guru)-->
+        <!--end::Menu item - Inventaris (Guru only)-->
         @endif
 
-        <!--begin::Menu item - Peminjaman-->
+        <!--begin::Menu item - Peminjaman (Admin + Guru)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.borrowings.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -161,7 +176,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - Peminjaman (Admin + Guru)-->
         @endif
 
         @if(auth()->user()->isAdmin())
@@ -171,7 +186,7 @@
             </div>
         </div>
 
-        <!--begin::Menu item - Monitoring-->
+        <!--begin::Menu item - Monitoring (Admin only)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.monitoring.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -195,7 +210,46 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - Monitoring (Admin only)-->
+        @endif
+
+        <!--begin::Menu item - Pelaporan (Guru only - no Admin access to reports menu since admin has its own Pelaporan below)-->
+        @if(auth()->user()->isGuru() && !auth()->user()->isAdmin())
+        <div class="menu-item pt-5">
+            <div class="menu-content">
+                <span class="menu-heading fw-bold text-uppercase fs-7">Pelaporan</span>
+            </div>
+        </div>
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('guru.reports.*') ? 'here show' : '' }}">
+            <span class="menu-link">
+                <span class="menu-icon">
+                    <i class="ki-duotone ki-chart-simple fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                </span>
+                <span class="menu-title">Laporan</span>
+                <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion">
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.reports.kerusakan-lokasi') ? 'active' : '' }}" href="{{ route('guru.reports.kerusakan-lokasi') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Kerusakan per Lokasi</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.reports.kondisi') ? 'active' : '' }}" href="{{ route('guru.reports.kondisi') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Kondisi Barang</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.reports.prioritas') ? 'active' : '' }}" href="{{ route('guru.reports.prioritas') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Prioritas Pengadaan</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end::Menu item - Pelaporan (Guru only)-->
         @endif
 
         <div class="menu-item pt-5">
@@ -204,7 +258,8 @@
             </div>
         </div>
 
-        <!--begin::Menu item - Laporan-->
+        <!--begin::Menu item - Laporan (Admin only, since guru has its own above)-->
+        @if(auth()->user()->isAdmin())
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.reports.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -258,7 +313,8 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        @endif
+        <!--end::Menu item - Laporan (Admin only)-->
 
         @if(auth()->user()->isAdmin())
         <div class="menu-item pt-5">
@@ -267,7 +323,7 @@
             </div>
         </div>
 
-        <!--begin::Menu item - User Management-->
+        <!--begin::Menu item - User Management (Admin only)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.users.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -291,7 +347,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - User Management (Admin only)-->
 
         <div class="menu-item pt-5">
             <div class="menu-content">
@@ -299,7 +355,7 @@
             </div>
         </div>
 
-        <!--begin::Menu item - Pengaturan-->
+        <!--begin::Menu item - Pengaturan (Admin only)-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.settings.*') || request()->routeIs('admin.categories.*') || request()->routeIs('admin.locations.*') ? 'here show' : '' }}">
             <span class="menu-link">
                 <span class="menu-icon">
@@ -329,7 +385,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Menu item-->
+        <!--end::Menu item - Pengaturan (Admin only)-->
         @endif
     </div>
 </div>

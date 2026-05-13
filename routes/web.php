@@ -83,13 +83,21 @@ Route::middleware(['auth', 'admin:admin,guru'])->prefix('admin')->name('admin.')
 
 /*
 |--------------------------------------------------------------------------
-| Guru Routes (Inventaris Menu)
+| Guru Routes (Inventaris Menu + Dashboard + Reports)
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'admin:admin,guru'])->prefix('guru')->name('guru.')->group(function () {
+    Route::get('/dashboard', [GuruController::class, 'dashboard'])->name('dashboard');
     Route::get('/inventaris', [GuruController::class, 'inventaris'])->name('inventaris');
     Route::get('/inventaris/ready', [GuruController::class, 'ready'])->name('inventaris.ready');
     Route::get('/inventaris/dipinjam', [GuruController::class, 'sedangDipinjam'])->name('inventaris.dipinjam');
+    // Reports
+    Route::get('/reports/kerusakan-lokasi', [GuruController::class, 'kerusakanLokasi'])->name('reports.kerusakan-lokasi');
+    Route::get('/reports/kerusakan-lokasi/excel', [GuruController::class, 'kerusakanLokasiExcel'])->name('reports.kerusakan-lokasi.excel');
+    Route::get('/reports/kondisi', [GuruController::class, 'laporanKondisi'])->name('reports.kondisi');
+    Route::get('/reports/kondisi/excel', [GuruController::class, 'kondisiExcel'])->name('reports.kondisi.excel');
+    Route::get('/reports/prioritas', [GuruController::class, 'prioritasPengadaan'])->name('reports.prioritas');
+    Route::get('/reports/prioritas/excel', [GuruController::class, 'prioritasExcel'])->name('reports.prioritas.excel');
 });
 
 /*
