@@ -129,9 +129,9 @@
     </div>
     <!--end::Chart-->
 
-    <!--begin::Chart - Kategori Barang-->
+    <!--begin::Chart - Kondisi Barang + Kerusakan per Lokasi stacked (side by side on xl)-->
     <div class="col-xl-4">
-        <div class="card card-flush h-xl-100">
+        <div class="card card-flush h-xl-100 mb-5 mb-xl-0">
             <div class="card-header pt-7">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bold text-gray-800">Kondisi Barang</span>
@@ -139,13 +139,96 @@
                 </h3>
             </div>
             <div class="card-body pt-5">
-                <div id="chart_conditions" style="height: 300px;"></div>
+                <div id="chart_conditions" style="height: 250px;"></div>
             </div>
         </div>
     </div>
-    <!--end::Chart-->
 </div>
 <!--end::Charts Row-->
+
+<!--begin::Kerusakan Per Lokasi + Prioritas Row-->
+<div class="row g-5 g-xl-8 mb-5 mb-xl-8">
+    <!--begin::Kerusakan per Lokasi Chart-->
+    <div class="col-xl-6">
+        <div class="card card-flush h-xl-100">
+            <div class="card-header pt-7">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-gray-800">Kerusakan Per Lokasi</span>
+                    <span class="text-gray-500 mt-1 fw-semibold fs-6">Distribusi kerusakan per ruangan</span>
+                </h3>
+                <a href="{{ route('admin.reports.damage-location') }}" class="btn btn-sm btn-light-primary">Selengkapnya</a>
+            </div>
+            <div class="card-body pt-5">
+                @if($damageByLocation->count())
+                    <div id="chart_damage_location" style="height: 280px;"></div>
+                @else
+                    <div class="text-center text-muted py-15">
+                        <i class="ki-duotone ki-shield-check fs-3x mb-3 text-success"></i>
+                        <p class="mb-0">Belum ada data kerusakan.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <!--end::Kerusakan per Lokasi-->
+
+    <!--begin::Prioritas Pengadaan Panel-->
+    <div class="col-xl-6">
+        <div class="card card-flush h-xl-100">
+            <div class="card-header pt-7">
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-gray-800">Prioritas Pengadaan</span>
+                    <span class="text-gray-500 mt-1 fw-semibold fs-6">Barang yang perlu diprioritaskan (Top 5)</span>
+                </h3>
+                <a href="{{ route('admin.reports.priority') }}" class="btn btn-sm btn-light-success">Selengkapnya</a>
+            </div>
+            <div class="card-body pt-0">
+                @if($priorityItems->count())
+                    <div class="table-responsive">
+                        <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-3">
+                            <thead>
+                                <tr class="fw-bold text-muted fs-7">
+                                    <th>#</th>
+                                    <th>Barang</th>
+                                    <th>Lokasi</th>
+                                    <th class="text-center">Skor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($priorityItems as $item)
+                                <tr>
+                                    <td class="text-muted fw-semibold">{{ $loop->iteration }}</td>
+                                    <td>
+                                        <span class="text-gray-900 fw-bold d-block fs-6">{{ $item->name }}</span>
+                                        <span class="text-muted fw-semibold d-block fs-8">{{ $item->category->name ?? '-' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted fw-semibold">{{ $item->location->name ?? '-' }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        @php
+                                            $score = $item->priority_score;
+                                            $badge = $score >= 60 ? 'danger' : ($score >= 30 ? 'warning' : 'primary');
+                                        @endphp
+                                        <span class="badge badge-light-{{ $badge }} fs-7">{{ $score }}%</span>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @else
+                    <div class="text-center text-muted py-15">
+                        <i class="ki-duotone ki-check-circle fs-3x mb-3 text-success"></i>
+                        <p class="mb-0">Semua barang dalam kondisi baik.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <!--end::Prioritas Pengadaan-->
+</div>
+<!--end::Kerusakan + Prioritas Row-->
 
 <!--begin::Tables Row-->
 <div class="row g-5 g-xl-8">
@@ -310,5 +393,35 @@ var condOptions = {
     tooltip: { theme: 'dark' }
 };
 new ApexCharts(document.querySelector("#chart_conditions"), condOptions).render();
+
+// Damage Per Location Bar Chart (ApexCharts)
+var damageLabels = {!! json_encode($locationChartLabels) !!};
+var damageCounts = {!! json_encode($locationChartCounts) !!};
+
+if (damageLabels.length > 0) {
+    var damageOptions = {
+        series: [{ name: 'Jumlah Kerusakan', data: damageCounts }],
+        chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: 'inherit' },
+        colors: ['#F8285A'],
+        plotOptions: {
+            bar: { borderRadius: 6, horizontal: false, columnWidth: '40%', distributed: true }
+        },
+        dataLabels: { enabled: false },
+        legend: { show: false },
+        xaxis: {
+            categories: damageLabels,
+            labels: { style: { colors: '#A1A5B7', fontSize: '12px' } },
+            axisBorder: { show: false }
+        },
+        yaxis: {
+            labels: { style: { colors: '#A1A5B7', fontSize: '12px' }, min: 0 },
+            tickAmount: 4
+        },
+        fill: { opacity: 0.9 },
+        grid: { borderColor: '#F1F1F2', strokeDashArray: 4 },
+        tooltip: { theme: 'dark', y: { formatter: val => val + ' item' } }
+    };
+    new ApexCharts(document.querySelector("#chart_damage_location"), damageOptions).render();
+}
 </script>
 @endpush

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node *)",
+      "Bash(python3 -c \"print\\(open\\('/c/laragon/www/apliaksi-sarana-prarcoma/resources/views/admin/reports/priority.blade.php'\\).read\\(\\)\\)\")",
+      "Bash(python -c \"print\\(open\\('C:/laragon/www/apliaksi-sarana-prarcoma/resources/views/admin/reports/priority.blade.php'\\).read\\(\\)\\)\")",
+      "Bash(php --version)",
+      "Bash(composer show *)"
+    ]
+  }
+}

@@ -120,7 +120,8 @@ class BorrowingController extends Controller
 
     public function returns(Request $request)
     {
-        $query = Borrowing::with(['item', 'user'])->where('status', 'dipinjam');
+        $query = Borrowing::with(['item', 'user'])
+            ->whereIn('status', ['dipinjam', 'terlambat']);
 
         if (Auth::user()->isGuru()) {
             $query->where('user_id', Auth::id());
@@ -128,10 +129,17 @@ class BorrowingController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->whereHas('item', fn($q) => $q->where('name', 'like', "%{$search}%"));
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('item', fn($q2) => $q2->where('name', 'like', "%{$search}%"))
+                  ->orWhereHas('user', fn($q2) => $q2->where('name', 'like', "%{$search}%"));
+            });
         }
 
-        $borrowings = $query->orderBy('borrow_date', 'desc')->get();
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $borrowings = $query->orderBy('expected_return_date', 'asc')->get();
 
         return view('admin.borrowings.returns', compact('borrowings'));
     }

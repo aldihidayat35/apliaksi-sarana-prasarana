@@ -97,6 +97,40 @@
             </div>
         </div>
 
+        <!--begin::Menu item - Inventaris (Guru)-->
+        @if(auth()->user()->isGuru())
+        <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('guru.inventaris*') ? 'here show' : '' }}">
+            <span class="menu-link">
+                <span class="menu-icon">
+                    <i class="ki-duotone ki-cube-2 fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                </span>
+                <span class="menu-title">Inventaris</span>
+                <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion">
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.inventaris') && !request()->routeIs('guru.inventaris.ready') && !request()->routeIs('guru.inventaris.dipinjam') ? 'active' : '' }}" href="{{ route('guru.inventaris') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Daftar Barang</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.inventaris.ready') ? 'active' : '' }}" href="{{ route('guru.inventaris.ready') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Barang Ready</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('guru.inventaris.dipinjam') ? 'active' : '' }}" href="{{ route('guru.inventaris.dipinjam') }}">
+                        <span class="menu-bullet"><span class="bullet bullet-dot"></span></span>
+                        <span class="menu-title">Sedang Dipinjam</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end::Menu item - Inventaris (Guru)-->
+        @endif
+
         <!--begin::Menu item - Peminjaman-->
         <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('admin.borrowings.*') ? 'here show' : '' }}">
             <span class="menu-link">

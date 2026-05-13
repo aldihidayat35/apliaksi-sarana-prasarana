@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BorrowingController;
 use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\GuruController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,17 @@ Route::middleware(['auth', 'admin:admin,guru'])->prefix('admin')->name('admin.')
     Route::get('/borrowings/{borrowing}', [BorrowingController::class, 'show'])->name('borrowings.show');
     Route::put('/borrowings/{borrowing}/return', [BorrowingController::class, 'returnItem'])->name('borrowings.return');
     Route::delete('/borrowings/{borrowing}', [BorrowingController::class, 'destroy'])->name('borrowings.destroy');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Guru Routes (Inventaris Menu)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'admin:admin,guru'])->prefix('guru')->name('guru.')->group(function () {
+    Route::get('/inventaris', [GuruController::class, 'inventaris'])->name('inventaris');
+    Route::get('/inventaris/ready', [GuruController::class, 'ready'])->name('inventaris.ready');
+    Route::get('/inventaris/dipinjam', [GuruController::class, 'sedangDipinjam'])->name('inventaris.dipinjam');
 });
 
 /*

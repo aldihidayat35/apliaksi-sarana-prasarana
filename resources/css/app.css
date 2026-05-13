@@ -9,3 +9,96 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* ── Font Consistency Overrides ──────────────────────────────────────── */
+body {
+    font-size: 0.95rem !important;
+    line-height: 1.6;
+}
+
+h1, .h1 { font-size: 1.75rem !important; font-weight: 700; }
+h2, .h2 { font-size: 1.375rem !important; font-weight: 600; }
+h3, .h3 { font-size: 1.125rem !important; font-weight: 600; }
+h4, .h4 { font-size: 1rem !important; font-weight: 600; }
+
+.card-title {
+    font-size: 1.1rem !important;
+    font-weight: 600;
+}
+
+.table {
+    font-size: 0.9rem !important;
+}
+
+.table thead th {
+    font-size: 0.8rem !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.table tbody td {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+}
+
+/* Sidebar menu items */
+.menu-title,
+.menu-link .menu-title {
+    font-size: 0.9rem !important;
+}
+
+.menu-section .menu-heading {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.08em;
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.875rem !important;
+}
+
+/* Card header titles */
+.card-header .card-title {
+    font-size: 1rem !important;
+    font-weight: 600;
+}
+
+/* Text muted improvements */
+.text-muted {
+    font-size: 0.85rem !important;
+}
+
+/* Breadcrumb */
+.breadcrumb-item {
+    font-size: 0.875rem !important;
+}
+
+/* Form labels */
+.form-label {
+    font-size: 0.875rem !important;
+    font-weight: 500;
+}
+
+/* Badge text */
+.badge {
+    font-size: 0.75rem !important;
+    font-weight: 600;
+}
+
+/* Alert text */
+.alert {
+    font-size: 0.9rem !important;
+}
+
+/* Modal titles */
+.modal-title {
+    font-size: 1.1rem !important;
+    font-weight: 600;
+}
+
+/* Footer */
+.footer {
+    font-size: 0.85rem !important;
+}
+

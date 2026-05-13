@@ -47,15 +47,30 @@
     <div class="card-body d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-4">
         <div>
             <h3 class="fw-bold text-gray-900 mb-2">Katalog Barang Terbaru</h3>
-            <p class="text-gray-600 mb-0">Menampilkan barang yang baru diperoleh dalam {{ $days }} hari terakhir.</p>
+            <p class="text-gray-600 mb-0">Menampilkan <strong>{{ $items->count() }}</strong> barang yang baru diperoleh dalam {{ $days }} hari terakhir.</p>
         </div>
-        <form method="GET" class="d-flex gap-2">
+        <form method="GET" class="d-flex gap-2 flex-wrap">
             <select name="days" class="form-select form-select-solid w-200px" onchange="this.form.submit()">
                 <option value="30" {{ $days == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
                 <option value="60" {{ $days == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
                 <option value="90" {{ $days == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
                 <option value="180" {{ $days == 180 ? 'selected' : '' }}>180 Hari Terakhir</option>
             </select>
+            <select name="category_id" class="form-select form-select-solid w-175px" onchange="this.form.submit()">
+                <option value="">Semua Kategori</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                @endforeach
+            </select>
+            <select name="location_id" class="form-select form-select-solid w-175px" onchange="this.form.submit()">
+                <option value="">Semua Lokasi</option>
+                @foreach($locations as $loc)
+                    <option value="{{ $loc->id }}" {{ request('location_id') == $loc->id ? 'selected' : '' }}>{{ $loc->name }}</option>
+                @endforeach
+            </select>
+            @if(request()->hasAny(['category_id', 'location_id']))
+                <a href="{{ route('admin.items.new', ['days' => $days]) }}" class="btn btn-light-danger btn-sm">Reset</a>
+            @endif
         </form>
     </div>
 </div>
@@ -79,7 +94,10 @@
                         <h4 class="fw-bold text-gray-900 mb-1">{{ $item->name }}</h4>
                         <div class="text-muted fs-7">{{ $item->category->name ?? '-' }}</div>
                     </div>
-                    <span class="badge badge-light-{{ $item->availability_badge }}">{{ $item->availability_label }}</span>
+                    <div class="d-flex flex-column align-items-end gap-1">
+                        <span class="badge badge-light-{{ $item->availability_badge }}">{{ $item->availability_label }}</span>
+                        <span class="badge badge-light-{{ $item->condition_badge }}">{{ $item->condition_label }}</span>
+                    </div>
                 </div>
                 <div class="separator my-4"></div>
                 <div class="d-flex justify-content-between mb-2">
