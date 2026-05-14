@@ -7,7 +7,16 @@
       "Bash(php --version)",
       "Bash(composer show *)",
       "Bash(php -l routes/web.php)",
-      "Bash(php -l app/Http/Controllers/Admin/GuruController.php)"
+      "Bash(php -l app/Http/Controllers/Admin/GuruController.php)",
+      "Read(//c/laragon/www/apliaksi-sarana-prasaran/config/**)",
+      "Read(//c/laragon/www/**)",
+      "Bash(php \"C:/laragon/www/apliaksi-sarana-prasarana/artisan\" config:clear)",
+      "Bash(php \"C:/laragon/www/apliaksi-sarana-prasarana/artisan\" view:clear)",
+      "Bash(php \"C:/laragon/www/apliaksi-sarana-prasarana/artisan\" cache:clear)",
+      "Bash(php *)",
+      "Read(//c/laragon/etc/**)",
+      "Bash(curl -s \"http://aplikasi-sarana-prasarana.test/admin/reports/damage-location\")",
+      "Bash(curl -v -L \"http://aplikasi-sarana-prasana.test/admin/reports/damage-location\")"
     ]
   }
 }

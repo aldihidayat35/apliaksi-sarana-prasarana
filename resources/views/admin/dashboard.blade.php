@@ -329,8 +329,8 @@
 
 @push('custom-js')
 <script>
-// Borrowings Line Chart (ApexCharts)
-var borrowOptions = {
+// ===== BORROWINGS AREA CHART - Vibrant Gradient =====
+new ApexCharts(document.querySelector("#chart_borrowings"), {
     series: [{
         name: 'Peminjaman',
         data: [
@@ -339,87 +339,215 @@ var borrowOptions = {
             @endfor
         ]
     }],
-    chart: { type: 'line', height: 300, toolbar: { show: false }, fontFamily: 'inherit' },
+    chart: {
+        type: 'area',
+        height: 320,
+        fontFamily: 'inherit',
+        toolbar: { show: false },
+        zoom: { enabled: false },
+        sparkline: { enabled: false },
+    },
+    colors: ['#6366F1', '#06B6D4'],
     stroke: { curve: 'smooth', width: 3 },
-    colors: ['#0EA5E9'],
-    markers: { size: 5, colors: ['#0EA5E9'], strokeColors: '#fff', strokeWidth: 2 },
-    dataLabels: { enabled: false },
-    legend: { show: false },
-    xaxis: {
-        categories: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
-        labels: { style: { colors: '#A1A5B7', fontSize: '12px' } },
-        axisBorder: { show: false }
-    },
-    yaxis: {
-        labels: { style: { colors: '#A1A5B7', fontSize: '12px' } },
-        min: 0,
-        tickAmount: 4
-    },
     fill: {
         type: 'gradient',
-        gradient: { shade: 'light', type: 'vertical', shadeIntensity: 0.3, opacityFrom: 0.4, opacityTo: 0.05 }
+        gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.55,
+            opacityTo: 0.05,
+            stops: [0, 95, 100],
+            colorStops: [
+                { offset: 0, color: '#6366F1', opacity: 0.55 },
+                { offset: 100, color: '#06B6D4', opacity: 0.05 }
+            ]
+        },
     },
-    grid: { borderColor: '#F1F1F2', strokeDashArray: 4 },
-    tooltip: { theme: 'dark' }
-};
-new ApexCharts(document.querySelector("#chart_borrowings"), borrowOptions).render();
+    markers: {
+        size: 5,
+        strokeWidth: 2,
+        strokeColors: '#fff',
+        hover: { size: 7 },
+    },
+    dataLabels: {
+        enabled: true,
+        style: { fontSize: '11px', fontWeight: 700, colors: ['#fff'] },
+        background: { borderRadius: 6, padding: 4 },
+        dropShadow: { enabled: false }
+    },
+    legend: { show: false },
+    xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        labels: {
+            style: { colors: '#8892B0', fontSize: '12px', fontWeight: 600 },
+            offsetY: -5,
+        },
+        axisBorder: { show: false },
+        axisTicks: { show: false },
+        crosshairs: { show: true, stroke: { color: '#6366F1', width: 1, dashArray: 3 } }
+    },
+    yaxis: {
+        labels: {
+            style: { colors: '#8892B0', fontSize: '12px' },
+            formatter: val => Math.round(val),
+            offsetX: -10,
+        },
+        min: 0,
+        tickAmount: 5,
+    },
+    grid: {
+        borderColor: '#E2E8F0',
+        strokeDashArray: 5,
+        xaxis: { lines: { show: false } },
+        yaxis: { lines: { show: true } },
+        padding: { top: -20, right: 0, bottom: 0, left: 0 },
+    },
+    tooltip: {
+        theme: 'dark',
+        y: { formatter: val => val + ' peminjaman' },
+        marker: { show: true }
+    }
+}).render();
 
-// Conditions Donut Chart (ApexCharts)
-var condOptions = {
+// ===== CONDITIONS DONUT CHART - Vivid Colorful =====
+var condTotal = {{ $barangBaik }} + {{ $barangRusak }} + {{ $barangHilang }};
+new ApexCharts(document.querySelector("#chart_conditions"), {
     series: [{{ $barangBaik }}, {{ $barangRusak }}, {{ $barangHilang }}],
     chart: { type: 'donut', height: 300, fontFamily: 'inherit' },
     labels: ['Baik', 'Rusak', 'Hilang'],
-    colors: ['#17C653', '#F6C000', '#F8285A'],
+    colors: ['#22C55E', '#F59E0B', '#EF4444'],
     plotOptions: {
         pie: {
+            startAngle: -15,
+            endAngle: 345,
             donut: {
-                size: '65%',
+                size: '70%',
                 labels: {
                     show: true,
+                    name: {
+                        show: true,
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: '#64748B',
+                        offsetY: -8,
+                    },
+                    value: {
+                        show: true,
+                        fontSize: '22px',
+                        fontWeight: 700,
+                        color: '#1E293B',
+                        offsetY: 8,
+                        formatter: val => val,
+                    },
                     total: {
                         show: true,
-                        label: 'Total',
-                        fontSize: '14px',
+                        label: 'Total Barang',
+                        fontSize: '12px',
                         fontWeight: 600,
-                        color: '#A1A5B7'
+                        color: '#94A3B8',
+                        formatter: () => condTotal,
                     }
                 }
-            }
+            },
+            customScale: 1,
+            dataLabels: { offset: 0 }
         }
     },
-    dataLabels: { enabled: false },
-    legend: { position: 'bottom', fontSize: '13px', labels: { colors: '#A1A5B7' } },
-    stroke: { width: 0 },
-    tooltip: { theme: 'dark' }
-};
-new ApexCharts(document.querySelector("#chart_conditions"), condOptions).render();
+    dataLabels: {
+        enabled: true,
+        style: { fontSize: '12px', fontWeight: 700, colors: ['#fff'] },
+        dropShadow: { enabled: false },
+        formatter: (val, opts) => Math.round(val) + '%'
+    },
+    legend: {
+        position: 'bottom',
+        fontSize: '12px',
+        labels: {
+            colors: '#64748B',
+            useSeriesColors: false,
+        },
+        markers: { width: 10, height: 10, radius: 3, offsetX: -4 },
+        itemMargin: { horizontal: 10, vertical: 4 },
+    },
+    stroke: { width: 3, color: '#fff' },
+    tooltip: {
+        theme: 'dark',
+        y: { formatter: val => val + ' item' }
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: { chart: { height: 280 }, legend: { position: 'bottom' } }
+    }]
+}).render();
 
-// Damage Per Location Bar Chart (ApexCharts)
+// ===== DAMAGE PER LOCATION BAR CHART - Rainbow Vibrant =====
 var damageLabels = {!! json_encode($locationChartLabels) !!};
 var damageCounts = {!! json_encode($locationChartCounts) !!};
+
+// Vibrant palette for bars
+var barColors = ['#EF4444', '#F97316', '#EAB308', '#22C55E', '#06B6D4', '#6366F1', '#A855F7', '#EC4899'];
 
 if (damageLabels.length > 0) {
     var damageOptions = {
         series: [{ name: 'Jumlah Kerusakan', data: damageCounts }],
-        chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: 'inherit' },
-        colors: ['#F8285A'],
-        plotOptions: {
-            bar: { borderRadius: 6, horizontal: false, columnWidth: '40%', distributed: true }
+        chart: {
+            type: 'bar',
+            height: 310,
+            fontFamily: 'inherit',
+            toolbar: { show: false },
         },
-        dataLabels: { enabled: false },
+        colors: function({ value, seriesIndex, w }) {
+            return barColors[seriesIndex % barColors.length];
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 8,
+                borderRadiusApplication: 'end',
+                columnWidth: '45%',
+                distributed: true,
+                endingShape: 'rounded',
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            style: { fontSize: '11px', fontWeight: 700, colors: ['#fff'] },
+            dropShadow: { enabled: false }
+        },
         legend: { show: false },
         xaxis: {
             categories: damageLabels,
-            labels: { style: { colors: '#A1A5B7', fontSize: '12px' } },
-            axisBorder: { show: false }
+            labels: {
+                style: {
+                    colors: '#8892B0',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    rotate: 0,
+                },
+                rotateAlways: false,
+            },
+            axisBorder: { show: false, color: '#E2E8F0' },
+            axisTicks: { show: false },
         },
         yaxis: {
-            labels: { style: { colors: '#A1A5B7', fontSize: '12px' }, min: 0 },
-            tickAmount: 4
+            labels: {
+                style: { colors: '#8892B0', fontSize: '12px' },
+                formatter: val => Math.round(val),
+                offsetX: -8,
+            },
+            min: 0,
+            tickAmount: 5,
         },
-        fill: { opacity: 0.9 },
-        grid: { borderColor: '#F1F1F2', strokeDashArray: 4 },
-        tooltip: { theme: 'dark', y: { formatter: val => val + ' item' } }
+        fill: { opacity: 1 },
+        grid: {
+            borderColor: '#E2E8F0',
+            strokeDashArray: 4,
+            xaxis: { lines: { show: false } },
+            yaxis: { lines: { show: true } },
+        },
+        tooltip: {
+            theme: 'dark',
+            marker: { show: true },
+            y: { formatter: val => val + ' item rusak' }
+        },
     };
     new ApexCharts(document.querySelector("#chart_damage_location"), damageOptions).render();
 }
