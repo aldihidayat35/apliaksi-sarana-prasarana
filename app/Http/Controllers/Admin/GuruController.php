@@ -323,6 +323,7 @@ class GuruController extends Controller
             new \App\Exports\PriorityExport($items),
             'laporan-prioritas-pengadaan-' . date('Ymd') . '.xlsx'
         );
+    }
 
     /**
      * Unduh PDF - Kondisi Barang

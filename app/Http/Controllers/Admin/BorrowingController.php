@@ -152,8 +152,3 @@ class BorrowingController extends Controller
         return redirect()->route('admin.borrowings.index')->with('success', 'Data peminjaman berhasil dihapus.');
     }
 }
-
-    public function returnSlip(Borrowing $borrowing)
-    {
-        return view('admin.borrowings.return-slip', compact('borrowing'));
-    }
