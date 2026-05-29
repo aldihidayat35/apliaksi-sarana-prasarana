@@ -4,8 +4,8 @@
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
-    <li class="breadcrumb-item text-muted">
-        <a href="{{ route('guru.dashboard') }}" class="text-muted text-hover-primary">Home</a>
+    <li class="breadcrumb-item text-gray-500">
+        <a href="{{ route('guru.dashboard') }}" class="text-gray-500 text-hover-primary">Home</a>
     </li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
     <li class="breadcrumb-item text-gray-900">Dashboard</li>
@@ -72,7 +72,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Pengembalian Barang</div>
-                    <div class="text-muted fs-7">Kembalikan barang yang dipinjam</div>
+                    <div class="text-gray-500 fs-7">Kembalikan barang yang dipinjam</div>
                 </div>
                 <i class="ki-duotone ki-arrows-circle ki-timer text-success fs-3x"><span class="path1"></span><span class="path2"></span></i>
             </div>
@@ -83,7 +83,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Kerusakan per Lokasi</div>
-                    <div class="text-muted fs-7">Lihat kerusakan per ruangan</div>
+                    <div class="text-gray-500 fs-7">Lihat kerusakan per ruangan</div>
                 </div>
                 <i class="ki-duotone ki-map fs-3x text-primary"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             </div>
@@ -94,7 +94,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Laporan Kondisi</div>
-                    <div class="text-muted fs-7">Kondisi seluruh barang</div>
+                    <div class="text-gray-500 fs-7">Kondisi seluruh barang</div>
                 </div>
                 <i class="ki-duotone ki-chart-simple fs-3x text-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
             </div>
@@ -105,7 +105,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Prioritas Pengadaan</div>
-                    <div class="text-muted fs-7">Rekomendasi pengadaan</div>
+                    <div class="text-gray-500 fs-7">Rekomendasi pengadaan</div>
                 </div>
                 <i class="ki-duotone ki-chart-line-up fs-3x text-danger"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             </div>
@@ -130,7 +130,7 @@
                 @if($damageByLocation->count())
                     <div id="chart_damage_location" style="height: 280px;"></div>
                 @else
-                    <div class="text-center text-muted py-15">
+                    <div class="text-center text-gray-500 py-15">
                         <i class="ki-duotone ki-shield-check fs-3x mb-3 d-block text-success"></i>
                         <p class="mb-0">Belum ada data kerusakan.</p>
                     </div>
@@ -155,7 +155,7 @@
                     <div class="table-responsive">
                         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-3">
                             <thead>
-                                <tr class="fw-bold text-muted fs-7">
+                                <tr class="fw-bold text-gray-500 fs-7">
                                     <th>#</th>
                                     <th>Barang</th>
                                     <th>Lokasi</th>
@@ -165,12 +165,12 @@
                             <tbody>
                                 @foreach($priorityItems as $item)
                                 <tr>
-                                    <td class="text-muted fw-semibold">{{ $loop->iteration }}</td>
+                                    <td class="text-gray-500 fw-semibold">{{ $loop->iteration }}</td>
                                     <td>
                                         <span class="text-gray-900 fw-bold d-block fs-6">{{ $item->name }}</span>
-                                        <span class="text-muted fw-semibold d-block fs-8">{{ $item->category->name ?? '-' }}</span>
+                                        <span class="text-gray-500 fw-semibold d-block fs-8">{{ $item->category->name ?? '-' }}</span>
                                     </td>
-                                    <td class="text-muted fw-semibold">{{ $item->location->name ?? '-' }}</td>
+                                    <td class="text-gray-500 fw-semibold">{{ $item->location->name ?? '-' }}</td>
                                     <td class="text-center">
                                         @php $score = $item->priority_score; @endphp
                                         <span class="badge badge-light-{{ $score >= 60 ? 'danger' : ($score >= 30 ? 'warning' : 'primary') }}">{{ $score }}%</span>
@@ -181,7 +181,7 @@
                         </table>
                     </div>
                 @else
-                    <div class="text-center text-muted py-15">
+                    <div class="text-center text-gray-500 py-15">
                         <i class="ki-duotone ki-check-circle fs-3x mb-3 d-block text-success"></i>
                         <p class="mb-0">Semua barang dalam kondisi baik.</p>
                     </div>
@@ -198,7 +198,7 @@
         <a href="{{ route('guru.reports.kondisi') }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold text-primary">{{ $summary['total'] }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Total Barang</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Total Barang</div>
             </div>
         </a>
     </div>
@@ -206,7 +206,7 @@
         <a href="{{ route('guru.reports.kondisi', ['condition' => 'baik']) }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold text-success">{{ $summary['baik'] }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Baik</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Baik</div>
             </div>
         </a>
     </div>
@@ -214,7 +214,7 @@
         <a href="{{ route('guru.reports.kondisi', ['condition' => 'rusak_ringan']) }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold text-warning">{{ $summary['rusak_ringan'] }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Rusak Ringan</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Rusak Ringan</div>
             </div>
         </a>
     </div>
@@ -222,7 +222,7 @@
         <a href="{{ route('guru.reports.kondisi', ['condition' => 'rusak_berat']) }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold text-danger">{{ $summary['rusak_berat'] }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Rusak Berat</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Rusak Berat</div>
             </div>
         </a>
     </div>
@@ -230,7 +230,7 @@
         <a href="{{ route('guru.reports.kondisi', ['condition' => 'hilang']) }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold" style="color:#7239EA;">{{ $summary['hilang'] }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Hilang</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Hilang</div>
             </div>
         </a>
     </div>
@@ -238,7 +238,7 @@
         <a href="{{ route('guru.reports.prioritas') }}" class="card card-flush h-xl-100 text-decoration-none">
             <div class="card-body text-center py-5">
                 <div class="fs-2hx fw-bold text-primary">{{ $priorityItems->count() }}</div>
-                <div class="fs-7 text-muted fw-semibold mt-1">Prioritas</div>
+                <div class="fs-7 text-gray-500 fw-semibold mt-1">Prioritas</div>
             </div>
         </a>
     </div>
@@ -251,7 +251,7 @@
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bold fs-3 mb-1">Barang Yang Saya Pinjam</span>
-                    <span class="text-muted mt-1 fw-semibold fs-7">{{ $barangDipinjam }} barang sedang dipinjam</span>
+                    <span class="text-gray-500 mt-1 fw-semibold fs-7">{{ $barangDipinjam }} barang sedang dipinjam</span>
                 </h3>
                 <div class="card-toolbar">
                     <a href="{{ route('admin.borrowings.returns') }}" class="btn btn-sm btn-light-success">
@@ -263,7 +263,7 @@
                 <div class="table-responsive">
                     <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                         <thead>
-                            <tr class="fw-bold text-muted">
+                            <tr class="fw-bold text-gray-500">
                                 <th>Barang</th>
                                 <th>Lokasi</th>
                                 <th>Tanggal Pinjam</th>
@@ -277,10 +277,10 @@
                             <tr class="{{ $isOverdue ? 'table-danger' : '' }}">
                                 <td>
                                     <span class="text-gray-900 fw-bold d-block fs-6">{{ $b->item->name ?? '-' }}</span>
-                                    <span class="text-muted fw-semibold d-block fs-7">{{ $b->item->code ?? '' }}</span>
+                                    <span class="text-gray-500 fw-semibold d-block fs-7">{{ $b->item->code ?? '' }}</span>
                                 </td>
-                                <td class="text-muted fw-semibold">{{ $b->item->location->name ?? '-' }}</td>
-                                <td class="text-muted fw-semibold">{{ $b->borrow_date->format('d M Y') }}</td>
+                                <td class="text-gray-500 fw-semibold">{{ $b->item->location->name ?? '-' }}</td>
+                                <td class="text-gray-500 fw-semibold">{{ $b->borrow_date->format('d M Y') }}</td>
                                 <td>
                                     <span class="fw-semibold {{ $isOverdue ? 'text-danger' : 'text-gray-700' }}">
                                         {{ $b->expected_return_date->format('d M Y') }}
@@ -297,7 +297,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="text-center text-muted py-10">Tidak ada barang yang sedang dipinjam.</td>
+                                <td colspan="5" class="text-center text-gray-500 py-10">Tidak ada barang yang sedang dipinjam.</td>
                             </tr>
                             @endforelse
                         </tbody>

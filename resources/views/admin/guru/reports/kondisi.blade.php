@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
-    <li class="breadcrumb-item text-muted"><a href="{{ route('guru.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a></li>
+    <li class="breadcrumb-item text-gray-500"><a href="{{ route('guru.dashboard') }}" class="text-gray-500 text-hover-primary">Dashboard</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
     <li class="breadcrumb-item text-gray-900">Laporan Kondisi Barang</li>
 </ul>
@@ -13,10 +13,10 @@
 @section('content')
 {{-- Summary Cards --}}
 <div class="row g-5 g-xl-8 mb-5 no-print">
-    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-primary">{{ $summary['total'] }}</div><div class="fs-7 text-muted fw-semibold mt-1">Total Barang</div></div></div></div>
-    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-success">{{ $summary['baik'] }}</div><div class="fs-7 text-muted fw-semibold mt-1">Baik</div></div></div></div>
-    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-warning">{{ $summary['rusak_ringan'] }}</div><div class="fs-7 text-muted fw-semibold mt-1">Rusak Ringan</div></div></div></div>
-    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-danger">{{ $summary['rusak_berat'] + $summary['hilang'] }}</div><div class="fs-7 text-muted fw-semibold mt-1">Rusak Berat + Hilang</div></div></div></div>
+    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-primary">{{ $summary['total'] }}</div><div class="fs-7 text-gray-500 fw-semibold mt-1">Total Barang</div></div></div></div>
+    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-success">{{ $summary['baik'] }}</div><div class="fs-7 text-gray-500 fw-semibold mt-1">Baik</div></div></div></div>
+    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-warning">{{ $summary['rusak_ringan'] }}</div><div class="fs-7 text-gray-500 fw-semibold mt-1">Rusak Ringan</div></div></div></div>
+    <div class="col-xl-3 col-md-6"><div class="card card-flush"><div class="card-body text-center py-5"><div class="fs-2hx fw-bold text-danger">{{ $summary['rusak_berat'] + $summary['hilang'] }}</div><div class="fs-7 text-gray-500 fw-semibold mt-1">Rusak Berat + Hilang</div></div></div></div>
 </div>
 
 <div class="card card-flush">
@@ -49,6 +49,7 @@
             </form>
         </div>
         <div class="card-toolbar d-flex gap-2">
+            <a href="{{ route('guru.reports.kondisi.pdf', request()->all()) }}" class="btn btn-light-danger btn-sm"><i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh PDF</a>
             <a href="{{ route('guru.reports.kondisi.excel', request()->all()) }}" class="btn btn-light-success btn-sm">
                 <i class="ki-duotone ki-file-down fs-4"><span class="path1"></span><span class="path2"></span></i> Unduh Excel
             </a>
@@ -58,7 +59,7 @@
         <div class="table-responsive">
             <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3 table-striped">
                 <thead>
-                    <tr class="fw-bold text-muted bg-light">
+                    <tr class="fw-bold text-gray-500 bg-light">
                         <th>No</th>
                         <th>Kode</th>
                         <th>Nama Barang</th>
@@ -72,15 +73,15 @@
                     @forelse($items as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td class="text-muted fw-semibold">{{ $item->code }}</td>
+                        <td class="text-gray-500 fw-semibold">{{ $item->code }}</td>
                         <td class="fw-bold text-gray-900">{{ $item->name }}</td>
                         <td><span class="badge badge-light-{{ $item->condition_badge }}">{{ $item->condition_label }}</span></td>
-                        <td class="text-muted">{{ $item->location->name ?? '-' }}</td>
-                        <td class="text-muted">{{ $item->category->name ?? '-' }}</td>
+                        <td class="text-gray-500">{{ $item->location->name ?? '-' }}</td>
+                        <td class="text-gray-500">{{ $item->category->name ?? '-' }}</td>
                         <td class="fw-semibold text-center">{{ $item->quantity }}</td>
                     </tr>
                     @empty
-                    <tr><td colspan="7" class="text-center text-muted py-10">Tidak ada data.</td></tr>
+                    <tr><td colspan="7" class="text-center text-gray-500 py-10">Tidak ada data.</td></tr>
                     @endforelse
                 </tbody>
             </table>

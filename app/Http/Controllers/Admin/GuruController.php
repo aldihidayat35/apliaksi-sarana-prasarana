@@ -323,5 +323,41 @@ class GuruController extends Controller
             new \App\Exports\PriorityExport($items),
             'laporan-prioritas-pengadaan-' . date('Ymd') . '.xlsx'
         );
+
+    /**
+     * Unduh PDF - Kondisi Barang
+     */
+    public function kondisiPdf(Request $request)
+    {
+        $query = \App\Models\Item::with(['category', 'location']);
+        if ($request->filled('condition')) $query->where('condition', $request->condition);
+        if ($request->filled('location_id')) $query->where('location_id', $request->location_id);
+        if ($request->filled('category_id')) $query->where('category_id', $request->category_id);
+        $items = $query->orderBy('name')->get();
+        $summary = [
+            'total' => \App\Models\Item::count(),
+            'baik' => \App\Models\Item::where('condition', 'baik')->count(),
+            'rusak_ringan' => \App\Models\Item::where('condition', 'rusak_ringan')->count(),
+            'rusak_berat' => \App\Models\Item::where('condition', 'rusak_berat')->count(),
+            'hilang' => \App\Models\Item::where('condition', 'hilang')->count(),
+        ];
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.guru.reports.pdf.kondisi', compact('items', 'summary'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->download('laporan-kondisi-' . date('Ymd') . '.pdf');
     }
+
+    /**
+     * Generate bukti pengembalian PDF untuk guru
+     */
+    public function buktiPengembalianPdf($borrowingId)
+    {
+        $borrowing = \App\Models\Borrowing::with(['item', 'item.location', 'item.category', 'user'])
+            ->where('user_id', auth()->id())
+            ->findOrFail($borrowingId);
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.guru.reports.pdf.bukti-pengembalian', compact('borrowing'));
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('bukti-pengembalian-' . $borrowing->id . '-' . date('Ymd') . '.pdf');
+    }
+
 }

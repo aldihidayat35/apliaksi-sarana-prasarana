@@ -4,9 +4,9 @@
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
-    <li class="breadcrumb-item text-muted"><a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a></li>
+    <li class="breadcrumb-item text-gray-500"><a href="{{ route('admin.dashboard') }}" class="text-gray-500 text-hover-primary">Dashboard</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
-    <li class="breadcrumb-item text-muted"><a href="{{ route('guru.inventaris') }}" class="text-muted text-hover-primary">Inventaris</a></li>
+    <li class="breadcrumb-item text-gray-500"><a href="{{ route('guru.inventaris') }}" class="text-gray-500 text-hover-primary">Inventaris</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
     <li class="breadcrumb-item text-gray-900">Sedang Dipinjam</li>
 </ul>
@@ -23,7 +23,7 @@
         <div class="table-responsive">
             <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                 <thead>
-                    <tr class="fw-bold text-muted bg-light">
+                    <tr class="fw-bold text-gray-500 bg-light">
                         <th>No</th>
                         <th>Barang</th>
                         <th>Kode</th>
@@ -31,6 +31,7 @@
                         <th>Tgl Pinjam</th>
                         <th>Harus Kembali</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,9 +42,9 @@
                     <tr class="{{ $isOverdue ? 'table-danger' : '' }}">
                         <td>{{ $loop->iteration }}</td>
                         <td class="fw-bold text-gray-900">{{ $b->item->name ?? '-' }}</td>
-                        <td class="text-muted fw-semibold">{{ $b->item->code ?? '-' }}</td>
-                        <td class="text-muted">{{ $b->item->location->name ?? '-' }}</td>
-                        <td class="text-muted">{{ $b->borrow_date->format('d M Y') }}</td>
+                        <td class="text-gray-500 fw-semibold">{{ $b->item->code ?? '-' }}</td>
+                        <td class="text-gray-500">{{ $b->item->location->name ?? '-' }}</td>
+                        <td class="text-gray-500">{{ $b->borrow_date->format('d M Y') }}</td>
                         <td>
                             <span class="fw-semibold {{ $isOverdue ? 'text-danger' : 'text-gray-700' }}">
                                 {{ $b->expected_return_date->format('d M Y') }}
@@ -57,12 +58,17 @@
                                 {{ $isOverdue ? 'Terlambat' : 'Dipinjam' }}
                             </span>
                         </td>
+                        <td>
+                            <a href="{{ route('admin.borrowings.return-slip', $b) }}" target="_blank" class="btn btn-light-primary btn-icon btn-sm" title="Bukti Pengembalian">
+                                <i class="ki-duotone ki-devise fs-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                            </a>
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center py-10">
+                        <td colspan="8" class="text-center py-10">
                             <i class="ki-duotone ki-check-circle fs-3x mb-2 d-block text-success"></i>
-                            <span class="text-muted">Anda tidak sedang meminjam barang apapun.</span>
+                            <span class="text-gray-500">Anda tidak sedang meminjam barang apapun.</span>
                         </td>
                     </tr>
                     @endforelse

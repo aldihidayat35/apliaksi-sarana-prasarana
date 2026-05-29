@@ -36,7 +36,7 @@ class LoginController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('admin.dashboard'));
+            if (auth()->user()->isGuru()) { return redirect()->intended(route('guru.dashboard')); } return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([

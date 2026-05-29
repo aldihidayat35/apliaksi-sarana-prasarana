@@ -78,6 +78,7 @@ Route::middleware(['auth', 'admin:admin,guru'])->prefix('admin')->name('admin.')
     Route::post('/borrowings', [BorrowingController::class, 'store'])->name('borrowings.store');
     Route::get('/borrowings/{borrowing}', [BorrowingController::class, 'show'])->name('borrowings.show');
     Route::put('/borrowings/{borrowing}/return', [BorrowingController::class, 'returnItem'])->name('borrowings.return');
+    Route::get('/borrowings/{borrowing}/return-slip', [BorrowingController::class, 'returnSlip'])->name('borrowings.return-slip');
     Route::delete('/borrowings/{borrowing}', [BorrowingController::class, 'destroy'])->name('borrowings.destroy');
 });
 
@@ -142,4 +143,9 @@ Route::middleware(['auth', 'admin:admin'])->prefix('admin')->name('admin.')->gro
     // App Settings
     Route::get('/settings', [AppSettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [AppSettingController::class, 'update'])->name('settings.update');
+});
+
+// Guru PDF download routes
+Route::middleware(['auth', 'admin:admin,guru'])->prefix('guru')->name('guru.')->group(function () {
+    Route::get('/reports/kondisi/pdf', [App\Http\Controllers\Admin\GuruController::class, 'kondisiPdf'])->name('reports.kondisi.pdf');
 });

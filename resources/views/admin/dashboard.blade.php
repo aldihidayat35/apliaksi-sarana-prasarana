@@ -5,8 +5,8 @@
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
-    <li class="breadcrumb-item text-muted">
-        <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Home</a>
+    <li class="breadcrumb-item text-gray-500">
+        <a href="{{ route('admin.dashboard') }}" class="text-gray-500 text-hover-primary">Home</a>
     </li>
     <li class="breadcrumb-item">
         <span class="bullet bg-gray-300 w-5px h-2px"></span>
@@ -91,7 +91,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Kerusakan per Lokasi</div>
-                    <div class="text-muted fs-7">Lihat ruangan dengan kerusakan terbanyak</div>
+                    <div class="text-gray-500 fs-7">Lihat ruangan dengan kerusakan terbanyak</div>
                 </div>
                 <i class="ki-duotone ki-map fs-3x text-primary"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
             </div>
@@ -102,7 +102,7 @@
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="fw-bold fs-3 text-gray-900">Prioritas Pengadaan</div>
-                    <div class="text-muted fs-7">Rekomendasi barang yang perlu diprioritaskan</div>
+                    <div class="text-gray-500 fs-7">Rekomendasi barang yang perlu diprioritaskan</div>
                 </div>
                 <i class="ki-duotone ki-chart-simple fs-3x text-success"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
             </div>
@@ -162,7 +162,7 @@
                 @if($damageByLocation->count())
                     <div id="chart_damage_location" style="height: 280px;"></div>
                 @else
-                    <div class="text-center text-muted py-15">
+                    <div class="text-center text-gray-500 py-15">
                         <i class="ki-duotone ki-shield-check fs-3x mb-3 text-success"></i>
                         <p class="mb-0">Belum ada data kerusakan.</p>
                     </div>
@@ -187,7 +187,7 @@
                     <div class="table-responsive">
                         <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-3">
                             <thead>
-                                <tr class="fw-bold text-muted fs-7">
+                                <tr class="fw-bold text-gray-500 fs-7">
                                     <th>#</th>
                                     <th>Barang</th>
                                     <th>Lokasi</th>
@@ -197,13 +197,13 @@
                             <tbody>
                                 @foreach($priorityItems as $item)
                                 <tr>
-                                    <td class="text-muted fw-semibold">{{ $loop->iteration }}</td>
+                                    <td class="text-gray-500 fw-semibold">{{ $loop->iteration }}</td>
                                     <td>
                                         <span class="text-gray-900 fw-bold d-block fs-6">{{ $item->name }}</span>
-                                        <span class="text-muted fw-semibold d-block fs-8">{{ $item->category->name ?? '-' }}</span>
+                                        <span class="text-gray-500 fw-semibold d-block fs-8">{{ $item->category->name ?? '-' }}</span>
                                     </td>
                                     <td>
-                                        <span class="text-muted fw-semibold">{{ $item->location->name ?? '-' }}</span>
+                                        <span class="text-gray-500 fw-semibold">{{ $item->location->name ?? '-' }}</span>
                                     </td>
                                     <td class="text-center">
                                         @php
@@ -218,7 +218,7 @@
                         </table>
                     </div>
                 @else
-                    <div class="text-center text-muted py-15">
+                    <div class="text-center text-gray-500 py-15">
                         <i class="ki-duotone ki-check-circle fs-3x mb-3 text-success"></i>
                         <p class="mb-0">Semua barang dalam kondisi baik.</p>
                     </div>
@@ -238,7 +238,7 @@
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bold fs-3 mb-1">Peminjaman Terbaru</span>
-                    <span class="text-muted mt-1 fw-semibold fs-7">{{ $barangDipinjam }} barang sedang dipinjam</span>
+                    <span class="text-gray-500 mt-1 fw-semibold fs-7">{{ $barangDipinjam }} barang sedang dipinjam</span>
                 </h3>
                 @if(auth()->user()->isAdmin() || auth()->user()->isGuru())
                 <div class="card-toolbar">
@@ -252,7 +252,7 @@
                 <div class="table-responsive">
                     <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
                         <thead>
-                            <tr class="fw-bold text-muted">
+                            <tr class="fw-bold text-gray-500">
                                 <th>Barang</th>
                                 <th>Peminjam</th>
                                 <th>Tanggal</th>
@@ -264,15 +264,15 @@
                             <tr>
                                 <td>
                                     <span class="text-gray-900 fw-bold d-block fs-6">{{ $b->item->name ?? '-' }}</span>
-                                    <span class="text-muted fw-semibold d-block fs-7">{{ $b->item->code ?? '' }}</span>
+                                    <span class="text-gray-500 fw-semibold d-block fs-7">{{ $b->item->code ?? '' }}</span>
                                 </td>
-                                <td><span class="text-muted fw-semibold">{{ $b->user->name ?? '-' }}</span></td>
-                                <td><span class="text-muted fw-semibold">{{ $b->borrow_date->format('d M Y') }}</span></td>
+                                <td><span class="text-gray-500 fw-semibold">{{ $b->user->name ?? '-' }}</span></td>
+                                <td><span class="text-gray-500 fw-semibold">{{ $b->borrow_date->format('d M Y') }}</span></td>
                                 <td><span class="badge badge-light-{{ $b->status_badge }}">{{ $b->status_label }}</span></td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-10">Belum ada data peminjaman</td>
+                                <td colspan="4" class="text-center text-gray-500 py-10">Belum ada data peminjaman</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -289,7 +289,7 @@
             <div class="card-header border-0 pt-5">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bold fs-3 mb-1">Aktivitas Terbaru</span>
-                    <span class="text-muted mt-1 fw-semibold fs-7">Log aktivitas sistem</span>
+                    <span class="text-gray-500 mt-1 fw-semibold fs-7">Log aktivitas sistem</span>
                 </h3>
             </div>
             <div class="card-body pt-5">
@@ -312,11 +312,11 @@
                         </div>
                         <div class="fw-semibold text-gray-700 ps-3 fs-7">
                             {{ $activity->description }}
-                            <span class="text-muted d-block fs-8">oleh {{ $activity->user->name ?? 'System' }} &mdash; {{ $activity->created_at->diffForHumans() }}</span>
+                            <span class="text-gray-500 d-block fs-8">oleh {{ $activity->user->name ?? 'System' }} &mdash; {{ $activity->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                     @empty
-                    <div class="text-center text-muted py-10">Belum ada aktivitas</div>
+                    <div class="text-center text-gray-500 py-10">Belum ada aktivitas</div>
                     @endforelse
                 </div>
             </div>

@@ -4,9 +4,9 @@
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
-    <li class="breadcrumb-item text-muted"><a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a></li>
+    <li class="breadcrumb-item text-gray-500"><a href="{{ route('admin.dashboard') }}" class="text-gray-500 text-hover-primary">Dashboard</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
-    <li class="breadcrumb-item text-muted"><a href="{{ route('admin.borrowings.index') }}" class="text-muted text-hover-primary">Peminjaman</a></li>
+    <li class="breadcrumb-item text-gray-500"><a href="{{ route('admin.borrowings.index') }}" class="text-gray-500 text-hover-primary">Peminjaman</a></li>
     <li class="breadcrumb-item"><span class="bullet bg-gray-300 w-5px h-2px"></span></li>
     <li class="breadcrumb-item text-gray-900">Pengembalian</li>
 </ul>
@@ -25,40 +25,40 @@
 @endphp
 <div class="row g-5 g-xl-8 mb-5">
     <div class="col-md-4">
-        <div class="card card-flush" style="border-left: 4px solid #1B84FF;">
+        <div class="card card-flush" style="border-left: 4px solid #1B84FF; background: #EFF6FF;">
             <div class="card-body d-flex align-items-center gap-3 py-4">
                 <div class="d-flex flex-center flex-shrink-0 me-3">
                     <span class="fs-2hx fw-bold text-primary">{{ $totalDipinjam }}</span>
                 </div>
                 <div>
                     <div class="fw-bold text-gray-800 fs-6">Total Dipinjam</div>
-                    <span class="text-muted fs-7">Barang yang sedang dipinjam</span>
+                    <span class="text-gray-500 fs-7">Barang yang sedang dipinjam</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card card-flush" style="border-left: 4px solid #F8285A;">
+        <div class="card card-flush" style="border-left: 4px solid #F8285A; background: #FFF0F3;">
             <div class="card-body d-flex align-items-center gap-3 py-4">
                 <div class="d-flex flex-center flex-shrink-0 me-3">
                     <span class="fs-2hx fw-bold text-danger">{{ $overdueCount }}</span>
                 </div>
                 <div>
                     <div class="fw-bold text-gray-800 fs-6">Terlambat</div>
-                    <span class="text-muted fs-7">Melebihi batas pengembalian</span>
+                    <span class="text-gray-500 fs-7">Melebihi batas pengembalian</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card card-flush" style="border-left: 4px solid #F6C000;">
+        <div class="card card-flush" style="border-left: 4px solid #F6C000; background: #FFFBEB;">
             <div class="card-body d-flex align-items-center gap-3 py-4">
                 <div class="d-flex flex-center flex-shrink-0 me-3">
                     <span class="fs-2hx fw-bold text-warning">{{ $soonCount }}</span>
                 </div>
                 <div>
                     <div class="fw-bold text-gray-800 fs-6">Akan Jatuh Tempo</div>
-                    <span class="text-muted fs-7">Maksimal 2 hari lagi</span>
+                    <span class="text-gray-500 fs-7">Maksimal 2 hari lagi</span>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="table-responsive">
             <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3" id="kt_datatable">
                 <thead>
-                    <tr class="fw-bold text-muted bg-light">
+                    <tr class="fw-bold text-gray-500 bg-light">
                         <th>No</th>
                         <th>Barang</th>
                         <th>Peminjam</th>
@@ -103,7 +103,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             <span class="fw-bold text-gray-900">{{ $b->item->name }}</span>
-                            <span class="text-muted d-block fs-7">{{ $b->item->code }}</span>
+                            <span class="text-gray-500 d-block fs-7">{{ $b->item->code }}</span>
                         </td>
                         <td>
                             <span class="fw-semibold text-gray-700">{{ $b->user->name }}</span>
@@ -144,7 +144,7 @@
                                         <div class="d-flex gap-3 mb-4 p-3 rounded" style="background: #f8f9fa;">
                                             <div>
                                                 <p class="mb-1 fw-bold text-gray-800">{{ $b->item->name }}</p>
-                                                <p class="mb-0 text-muted fs-7">{{ $b->item->code }} &bull; {{ $b->user->name }}</p>
+                                                <p class="mb-0 text-gray-500 fs-7">{{ $b->item->code }} &bull; {{ $b->user->name }}</p>
                                             </div>
                                         </div>
                                         <div class="mb-3">
@@ -167,7 +167,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Upload Foto (jika ada kerusakan)</label>
                                             <input type="file" name="return_photo" class="form-control" accept="image/*"/>
-                                            <span class="text-muted fs-8 mt-1">Format: JPG, PNG, maks 2MB</span>
+                                            <span class="text-gray-500 fs-8 mt-1">Format: JPG, PNG, maks 2MB</span>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -182,7 +182,7 @@
                     </div>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-10">
+                        <td colspan="7" class="text-center text-gray-500 py-10">
                             <i class="ki-duotone ki-check-circle fs-3x mb-2 d-block text-success"></i>
                             Tidak ada barang yang perlu dikembalikan
                         </td>
